@@ -30,6 +30,6 @@ class Account
   end
 
   def insufficient_funds?(amount)
-    amount > @balance
+    amount > balance
   end
 end
