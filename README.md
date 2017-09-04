@@ -1,5 +1,22 @@
 # Bank Tech Test
 
+### How to run
+
+This is a command line application, which can be run by doing the following:
+
+$ git clone git@github.com:Alexander-Blair/bank-tech-test.git  
+$ cd bank-tech-test  
+$ ruby bank.rb  
+
+\> account = Account.new(Transaction)  
+\> statement_printer = StatementPrinter.new
+
+Then you can deposit and withdraw with the following commands:
+
+\> account.deposit(1000)  
+\> account.withdraw(500)
+
+
 ### User Stories
 ```
 As a user,
