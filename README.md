@@ -8,14 +8,22 @@ $ git clone git@github.com:Alexander-Blair/bank-tech-test.git
 $ cd bank-tech-test  
 $ ruby bank.rb  
 
-\> account = Account.new(Transaction)  
-\> statement_printer = StatementPrinter.new
+\> account = Account.new(Transaction, StatementPrinter.new)  
 
 Then you can deposit and withdraw with the following commands:
 
 \> account.deposit(1000)  
-\> account.withdraw(500)
+\> account.withdraw(500)  
 
+You can view your statement with the following command:
+
+\> account.view_statement  
+
+### Running the tests
+
+$ gem install bundler  
+$ bundle install  
+$ rspec
 
 ### User Stories
 ```
