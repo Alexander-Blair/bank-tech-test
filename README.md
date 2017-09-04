@@ -25,12 +25,14 @@ $ gem install bundler
 $ bundle install  
 $ rspec  
 
+Running RSpec will show the test coverage through SimpleCov.
+
 You can also run the following command to see rubocop results:  
 $ rubocop
 
 ### Approach
 
-The application has been developed in a TDD style, having 100% test coverage, with all passing (22 tests in total). There are three classes, only one with which the user will interact with - Account.
+The application has been developed in a TDD style, having 100% test coverage, with all passing. There are three classes, only one with which the user will interact with - Account.
 
 The account class has two dependencies (Transaction, StatementPrinter), which are injected upon initialization, in order to make the code easy to test and change.
 
