@@ -3,9 +3,12 @@ require 'account'
 describe Account do
   let(:deposit_amount) { 100 }
   let(:withdraw_amount) { 25 }
+  let(:float_number) { 7.5 }
   let(:current_balance) { account.balance }
   let(:insufficient_funds_error) { "Insufficient funds" }
   let(:negative_deposit_error) { "Cannot deposit negative amount" }
+  let(:non_integer_deposit_error) { "Cannot deposit decimal amount" }
+  let(:non_integer_withdraw_error) { "Cannot withdraw decimal amount" }
   let(:negative_withdrawal_error) { "Cannot withdraw negative amount" }
   let(:transaction_builder) { class_double("Transaction") }
   subject(:account) { described_class.new(transaction_builder) }
@@ -44,6 +47,9 @@ describe Account do
       it "must be a positive number" do
         expect{ account.deposit(-deposit_amount) }.to raise_error negative_deposit_error
       end
+      it "must be an integer" do
+        expect{ account.deposit(float_number) }.to raise_error non_integer_deposit_error
+      end
     end
   end
 
@@ -71,6 +77,9 @@ describe Account do
       end
       it "must be a positive number" do
         expect{ account.withdraw(-withdraw_amount) }.to raise_error negative_withdrawal_error
+      end
+      it "must be an integer" do
+        expect{ account.withdraw(float_number) }.to raise_error non_integer_withdraw_error
       end
     end
   end

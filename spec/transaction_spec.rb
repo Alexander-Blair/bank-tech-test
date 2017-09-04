@@ -1,8 +1,8 @@
 require 'transaction'
 
 describe Transaction do
-  let(:amount) { 50 }
-  let(:balance) { 100 }
+  let(:amount) { 1000 }
+  let(:balance) { 2000 }
   subject(:transaction) { described_class.new(amount, :credit, balance) }
   let(:debit_transaction) { described_class.new(amount, :debit, balance) }
 

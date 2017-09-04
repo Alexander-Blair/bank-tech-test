@@ -8,12 +8,14 @@ class Account
 
   def deposit(amount)
     raise "Cannot deposit negative amount" if negative_amount?(amount)
+    raise "Cannot deposit decimal amount" unless amount.is_a? Integer
     increase_balance(amount)
     create_transaction(amount, :credit)
   end
 
   def withdraw(amount)
     raise "Cannot withdraw negative amount" if negative_amount?(amount)
+    raise "Cannot withdraw decimal amount" unless amount.is_a? Integer
     decrease_balance(amount)
     create_transaction(amount, :debit)
   end
