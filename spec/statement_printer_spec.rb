@@ -10,6 +10,7 @@ describe StatementPrinter do
   let(:transaction) { double('transaction', date: Date.today, amount: amount, balance: balance) }
   let(:today_date) { Date.today.strftime('%d/%m/%Y') }
 
+  let(:empty_transactions) { [] }
   let(:mock_transactions) { [transaction, transaction] }
   let(:credit_transaction_output) { [today_date,
                                      ' || ' + amount_in_pounds + ' || ',
@@ -23,6 +24,7 @@ describe StatementPrinter do
                               debit_transaction_output,
                               credit_transaction_output].join("\n")
   }
+  let(:empty_statement) { "date || credit || debit || balance\n" }
 
   describe '#print_transaction' do
     it 'prints a credit transaction in a pretty format' do
@@ -42,6 +44,10 @@ describe StatementPrinter do
       allow(transaction).to receive(:type).and_return(:debit, :debit, :credit, :credit)
       expect { statement_printer.print_statement(mock_transactions) }
         .to output(expected_statement).to_stdout
+    end
+    it 'can print an empty statement' do
+      expect { statement_printer.print_statement(empty_transactions) }
+        .to output(empty_statement).to_stdout
     end
   end
 end
