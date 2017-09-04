@@ -1,17 +1,21 @@
 class Account
-  attr_reader :balance
-  def initialize
+  attr_reader :balance, :transactions
+  def initialize(transaction_builder)
     @balance = 0
+    @transactions = []
+    @transaction_builder = transaction_builder
   end
 
   def deposit(amount)
     raise "Cannot deposit negative amount" if negative_amount?(amount)
     increase_balance(amount)
+    create_transaction(amount, :credit)
   end
 
   def withdraw(amount)
     raise "Cannot withdraw negative amount" if negative_amount?(amount)
     decrease_balance(amount)
+    create_transaction(amount, :debit)
   end
 
   private
@@ -23,6 +27,10 @@ class Account
   def decrease_balance(amount)
     raise "Insufficient funds" if insufficient_funds?(amount)
     @balance -= amount
+  end
+
+  def create_transaction(amount, type)
+    transactions << @transaction_builder.new(amount, type, balance)
   end
 
   def negative_amount?(amount)
