@@ -40,13 +40,15 @@ $ rubocop
 ```
 ### Approach
 
-The application has been developed in a TDD style, having 100% test coverage, with all passing. There are three classes, only one with which the user will interact with - Account.
+The application has been developed in a TDD style, having 100% test coverage, with all passing. There are five classes, only one with which the user will interact with - Account.
 
-The account class has two dependencies (Transaction, StatementPrinter), which are injected upon initialization, in order to make the code easy to test and change.
+The account class has two dependencies (TransactionHistory, StatementPrinter), which are injected upon initialization, in order to make the code easy to test and change.
 
-The Account class has three public methods - deposit, withdraw, and view statement. The deposit and withdraw methods change the account balance; note that the account works with PENNIES (or cents, depending where you are).
+Those additional classes have one dependency each. TransactionHistory depends on Transaction, and StatementPrinter depends on StatementLine.
 
-In order to view the statement, and allow the Account to have single responsibility, two additional classes were added - Transaction, which keeps track of details for a completed transaction, and StatementPrinter, which takes all the transactions and prints them out, with the latest transaction first.
+The Account class has three public methods - deposit, withdraw, and view statement. The deposit and withdraw methods change the account balance.
+
+In order to view the statement, and allow the Account to have single responsibility, four additional classes were added - Transaction History, which holds all the transactions made; Transaction, which keeps track of details for a single completed transaction; Statement Line, which returns a transaction as a string; Statement Printer, which takes all the Statement Line strings and prints them out, with the latest transaction first.
 
 ### User Stories
 ```
