@@ -4,34 +4,40 @@
 
 This is a command line application, which can be run by doing the following:
 
+```sh
 $ git clone git@github.com:Alexander-Blair/bank-tech-test.git  
 $ cd bank-tech-test  
 $ gem install bundler  
 $ bundle install  
 $ ruby bank.rb  
+```
 
-irb \> account = Account.new(Transaction, StatementPrinter.new)  
+```ruby
+> transaction_history = TransactionHistory.new(Transaction)
+> statement_printer = StatementPrinter.new(StatementLine.new)
+> account = Account.new(transaction_history, statement_printer)
 
-Then you can deposit and withdraw with the following commands:
+# Then you can deposit and withdraw with the following commands:
 
-irb \> account.deposit(1000)  
-irb \> account.withdraw(500)  
+> account.deposit(1000)  
+> account.withdraw(500)  
 
-You can view your statement with the following command:
+# You can view your statement with the following command:
 
-irb \> account.view_statement  
+> account.view_statement
+```
 
 ### Running the tests
-
-$ gem install bundler  
-$ bundle install  
-$ rspec  
-
 Running RSpec will show the test coverage through SimpleCov.
 
-You can also run the following command to see rubocop results:  
-$ rubocop
+```sh
+$ rspec  
+```
 
+You can also run the following command to see rubocop results:  
+```sh
+$ rubocop
+```
 ### Approach
 
 The application has been developed in a TDD style, having 100% test coverage, with all passing. There are three classes, only one with which the user will interact with - Account.
