@@ -1,5 +1,6 @@
 class Account
   attr_reader :balance, :transactions
+
   def initialize(transaction_class, statement_printer)
     @balance = 0
     @transactions = []
@@ -33,5 +34,4 @@ class Account
     raise 'Cannot be decimal amount' unless amount.is_a? Integer
     @balance += amount
   end
-
 end

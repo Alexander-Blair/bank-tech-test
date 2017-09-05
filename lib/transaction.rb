@@ -4,11 +4,11 @@ class Transaction
   attr_reader :date, :amount, :type, :balance
 
   def self.debit(amount, balance)
-    initialize(amount, :debit, balance)
+    new(amount, :debit, balance)
   end
 
   def self.credit(amount, balance)
-    initialize(amount, :credit, balance)
+    new(amount, :credit, balance)
   end
 
   def initialize(amount, type, balance)
