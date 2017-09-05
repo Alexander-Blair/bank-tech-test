@@ -4,7 +4,6 @@ describe Transaction do
   let(:amount) { 1000 }
   let(:balance) { 2000 }
   subject(:transaction) { described_class.new(amount, :credit, balance) }
-  let(:debit_transaction) { described_class.new(amount, :debit, balance) }
 
   describe '#initialize' do
     it 'is created with a date' do
@@ -22,6 +21,7 @@ describe Transaction do
       end
     end
     context 'debit transaction' do
+      subject(:debit_transaction) { described_class.new(amount, :debit, balance) }
       it 'is created as a debit transaction' do
         expect(debit_transaction.type).to eq :debit
       end

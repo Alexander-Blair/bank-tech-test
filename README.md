@@ -6,6 +6,8 @@ This is a command line application, which can be run by doing the following:
 
 $ git clone git@github.com:Alexander-Blair/bank-tech-test.git  
 $ cd bank-tech-test  
+$ gem install bundler  
+$ bundle install  
 $ ruby bank.rb  
 
 irb \> account = Account.new(Transaction, StatementPrinter.new)  
