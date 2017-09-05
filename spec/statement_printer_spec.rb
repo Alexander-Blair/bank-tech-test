@@ -27,10 +27,8 @@ describe StatementPrinter do
       end
 
       it 'prints the whole statement in a pretty format' do
-        allow(transaction).to receive(:type).and_return(:debit, :debit, :credit, :credit)
         allow(mock_statement_line).to receive(:print)
           .and_return(mock_debit_transaction, mock_credit_transaction)
-
         expect { statement_printer.print_statement(mock_transactions) }
           .to output(expected_statement).to_stdout
       end

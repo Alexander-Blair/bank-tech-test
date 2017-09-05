@@ -3,20 +3,16 @@ require 'account'
 describe Account do
   let(:current_balance) { account.balance }
   let(:non_integer_error) { 'Cannot be decimal amount' }
-  let(:transaction_builder) do
-    class_double('Transaction', credit: nil, debit: nil)
+  let(:transaction_history) do
+    instance_double('TransactionHistory', credit: nil, debit: nil, transactions: nil)
   end
-  let(:statement_printer) { instance_double('statement_printer', :print_statement) }
+  let(:statement_printer) { instance_double('statement_printer') }
 
-  subject(:account) { described_class.new(transaction_builder, statement_printer) }
+  subject(:account) { described_class.new(transaction_history, statement_printer) }
 
   describe '#initialize' do
     it 'begins with a balance of 0' do
       expect(account.balance).to eq 0
-    end
-
-    it 'has an empty transactions array' do
-      expect(account.transactions).to be_empty
     end
   end
 
@@ -29,16 +25,11 @@ describe Account do
         expect(account.balance).to eq deposit_amount
       end
 
-      it 'asks transactions class to create a new transaction' do
-        expect(transaction_builder)
+      it 'asks transaction history object to store transaction' do
+        expect(transaction_history)
           .to receive(:credit)
           .with(deposit_amount, current_balance + deposit_amount)
         account.deposit(deposit_amount)
-      end
-
-      it 'stores the transaction in its transaction array' do
-        expect { account.deposit(deposit_amount) }
-          .to change { account.transactions.length }.by(1)
       end
     end
 
@@ -65,15 +56,10 @@ describe Account do
       end
 
       it 'asks transactions class to create a new transaction' do
-        expect(transaction_builder)
+        expect(transaction_history)
           .to receive(:debit)
           .with(withdraw_amount, current_balance - withdraw_amount)
         account.withdraw(withdraw_amount)
-      end
-
-      it 'stores the transaction in its transaction array' do
-        expect { account.withdraw(withdraw_amount) }
-          .to change { account.transactions.length }.by(1)
       end
     end
 
@@ -86,12 +72,10 @@ describe Account do
       end
     end
   end
-  
+
   describe '#view_statement' do
     it 'asks the statement printer to print the account statement' do
-      expect(statement_printer)
-        .to receive(:print_statement)
-        .with(account.transactions)
+      expect(statement_printer).to receive(:print_statement)
       account.view_statement
     end
   end

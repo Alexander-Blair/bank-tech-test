@@ -15,4 +15,5 @@ class StatementPrinter
   private
 
   attr_reader :statement_line
+  
 end

@@ -1,21 +1,20 @@
 class Account
-  attr_reader :balance, :transactions
+  attr_reader :balance
 
-  def initialize(transaction_class, statement_printer)
+  def initialize(transaction_history, statement_printer)
     @balance = 0
-    @transactions = []
-    @transaction_class = transaction_class
+    @transaction_history = transaction_history
     @statement_printer = statement_printer
   end
 
   def deposit(amount)
     change_balance(amount)
-    store_transaction(transaction_class.credit(amount, balance))
+    transaction_history.credit(amount, balance)
   end
 
   def withdraw(amount)
     change_balance(-amount)
-    store_transaction(transaction_class.debit(amount, balance))
+    transaction_history.debit(amount, balance)
   end
 
   def view_statement
@@ -24,10 +23,10 @@ class Account
 
   private
 
-  attr_reader :statement_printer, :transaction_class
+  attr_reader :statement_printer, :transaction_history
 
-  def store_transaction(transaction)
-    transactions << transaction
+  def transactions
+    transaction_history.transactions
   end
 
   def change_balance(amount)
